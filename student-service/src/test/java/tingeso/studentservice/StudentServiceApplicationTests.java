@@ -1,10 +1,10 @@
-package tingeso.studentsservice;
+package tingeso.studentservice;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest
-class StudentsServiceApplicationTests {
+class StudentServiceApplicationTests {
 
 	@Test
 	void contextLoads() {

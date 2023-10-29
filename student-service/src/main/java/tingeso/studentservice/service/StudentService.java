@@ -1,9 +1,9 @@
-package tingeso.studentsservice.service;
+package tingeso.studentservice.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import tingeso.studentsservice.repository.StudentRepository;
-import tingeso.studentsservice.entity.StudentEntity;
+import tingeso.studentservice.repository.StudentRepository;
+import tingeso.studentservice.entity.StudentEntity;
 
 import java.util.List;
 

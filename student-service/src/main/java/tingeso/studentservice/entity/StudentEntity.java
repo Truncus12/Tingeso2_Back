@@ -1,4 +1,4 @@
-package tingeso.studentsservice.entity;
+package tingeso.studentservice.entity;
 
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;

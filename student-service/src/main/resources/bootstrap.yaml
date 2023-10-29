@@ -1,0 +1,14 @@
+spring:
+  application:
+    name: student-service
+  cloud:
+    config:
+      enabled: true
+      uri: http://localhost:8081
+  datasource:
+    url: jdbc:postgresql://localhost:5432/microstudent
+    username: root
+    password: Chile&2022
+  jpa:
+    hibernate:
+      ddl-auto: update

@@ -1,10 +1,10 @@
-package tingeso.studentsservice.controller;
+package tingeso.studentservice.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import tingeso.studentsservice.entity.StudentEntity;
-import tingeso.studentsservice.service.StudentService;
+import tingeso.studentservice.entity.StudentEntity;
+import tingeso.studentservice.service.StudentService;
 
 import java.util.List;
 
