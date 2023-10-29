@@ -7,8 +7,8 @@ spring:
       uri: http://localhost:8081
   datasource:
     url: jdbc:postgresql://localhost:5432/microstudent
-    username: root
-    password: Chile&2022
+    username: postgres
+    password: lqs1
   jpa:
     hibernate:
       ddl-auto: update
