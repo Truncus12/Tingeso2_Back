@@ -1,0 +1,1 @@
+insert into estudiantes(rut, lastNames, names, birthdate, pastSchool, nameSchool, yearGradSchool) values (123456789, 'Perez', 'Carlos', '2000-01-01', 'privado', 'El monte', '2018-01-01');
