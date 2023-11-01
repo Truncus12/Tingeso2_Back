@@ -12,7 +12,7 @@ spring:
   cloud:
     config:
       enabled: true
-      uri: http://localhost:8082
+      uri: http://localhost:8081
   datasource:
     plataform: postgres
     driver-class-name: org.postgresql.Driver
