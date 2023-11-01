@@ -9,12 +9,12 @@ import tingeso.studentservice.service.StudentService;
 import java.util.List;
 
 @RestController
-@RequestMapping("/students")
+@RequestMapping("/student")
 public class StudentController {
     @Autowired
     StudentService studentService;
 
-    @GetMapping
+    @GetMapping("/")
     public ResponseEntity<List<StudentEntity>> getAll(){
         List<StudentEntity> students = studentService.getAll();
         if(students.isEmpty()){
@@ -32,7 +32,7 @@ public class StudentController {
         return ResponseEntity.ok(student);
     }
 
-    @PostMapping()
+    @PostMapping("/")
     public ResponseEntity<StudentEntity> save(@RequestBody StudentEntity student){
         StudentEntity studentNew = studentService.save(student);
         return ResponseEntity.ok(studentNew);

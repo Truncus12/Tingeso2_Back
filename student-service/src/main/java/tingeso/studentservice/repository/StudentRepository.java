@@ -9,7 +9,7 @@ import tingeso.studentservice.entity.StudentEntity;
 @Repository
 public interface StudentRepository extends JpaRepository<StudentEntity, Integer> {
 
-    @Query(value = "SELECT * FROM public.student WHERE student.rut = :rut", nativeQuery = true)
+    @Query(value = "SELECT * FROM student_entity WHERE student_entity.rut = :rut", nativeQuery = true)
     StudentEntity findByRut(@Param("rut") Integer rut);
 
 }
