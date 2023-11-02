@@ -20,5 +20,6 @@ public class FeeEntity {
     public Month month;
     public Float debt;
     public String state;
+    public Integer rut;
 
 }
