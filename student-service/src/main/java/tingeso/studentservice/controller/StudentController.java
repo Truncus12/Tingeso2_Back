@@ -38,33 +38,4 @@ public class StudentController {
         return ResponseEntity.ok(studentNew);
     }
 
-    /*
-    // CREATE STUDENT
-    @GetMapping("/student/new")
-    public String createStudentForm(Model model){
-        return "studentEntity-create";
-    }
-
-    @PostMapping("/student/new")
-    public String createStudent(@RequestParam Integer rut, String lastNames, String names, LocalDate birthdate,
-                                String pastSchool, String nameSchool, Integer yearGradSchool,
-                                String paymentMethod){
-        studentService.saveStudent(rut, lastNames, names, birthdate, pastSchool, nameSchool, yearGradSchool,
-                paymentMethod);
-        return "mainPage";
-    }
-
-    // CHOOSE FEES
-    @GetMapping("/chooseFees")
-    public String chooseFeesForm(Model model){
-        return "chooseFees";
-    }
-    @PostMapping("/chooseFees")
-    public String chooseFees(@RequestParam Integer rut, Integer nFees, LocalDate startSemester){
-        if (LocalDate.now().isEqual(startSemester.minusDays(5))){
-            studentService.chooseNFees(rut,nFees);
-        }
-        return "mainPage";
-    }
-     */
 }
