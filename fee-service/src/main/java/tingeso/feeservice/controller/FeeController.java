@@ -45,4 +45,13 @@ public class FeeController {
         }
         return ResponseEntity.ok(fees);
     }
+
+    @PutMapping("/{id}")
+    public ResponseEntity<FeeEntity> payFee(@PathVariable("id") int id){
+        FeeEntity feeUpdated = feeService.payFee(id);
+        if(feeUpdated == null){
+            return ResponseEntity.notFound().build();
+        }
+        return ResponseEntity.ok(feeUpdated);
+    }
 }

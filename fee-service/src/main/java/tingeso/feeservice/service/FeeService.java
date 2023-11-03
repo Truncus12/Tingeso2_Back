@@ -104,4 +104,15 @@ public class FeeService {
     public List<FeeEntity> byRut(Integer rut){
         return feeRepository.findByRut(rut);
     }
+
+    public FeeEntity payFee(Integer id){
+        FeeEntity fee = feeRepository.findById(id).orElse(null);
+        if(fee == null){
+            return null;
+        }
+        fee.setState("Pagado");
+        fee.setDebt(0f);
+        feeRepository.save(fee);
+        return fee;
+    }
 }
