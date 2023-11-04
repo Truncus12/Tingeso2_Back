@@ -30,7 +30,6 @@ public class FeeService {
     public List<FeeEntity> createFee(Integer rut, Integer nFees, LocalDate startSemester, String typePayment){
 
         List<FeeEntity> fees = new ArrayList<>();
-
         if (typePayment.equalsIgnoreCase("cuotas") &&
                 LocalDate.now().isEqual(startSemester.minusDays(5))){
 
@@ -72,7 +71,7 @@ public class FeeService {
             feeRepository.save(fee);
         }
 
-        return fees;
+        return feeRepository.saveAll(fees);
     }
 
     public StudentEntity findByRut(Integer rut){

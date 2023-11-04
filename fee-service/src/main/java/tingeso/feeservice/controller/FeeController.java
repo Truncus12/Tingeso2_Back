@@ -32,6 +32,7 @@ public class FeeController {
 
         List<FeeEntity> fees = feeService.createFee(rut, nFees, startSemester, typePayment);
         if(fees.isEmpty()){
+            System.out.println("No se pudo crear la cuota");
             return ResponseEntity.noContent().build();
         }
         return ResponseEntity.ok(fees);
