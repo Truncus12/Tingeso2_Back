@@ -21,7 +21,7 @@ public class ExamController {
         System.out.println("Test");
     }
 
-    @PutMapping("/")
+    @PutMapping("/exam/")
     public ResponseEntity<List<FeeEntity>> applyExam(@RequestParam Integer rut, LocalDate date, Integer score){
         List<FeeEntity> fees = examService.getFeesByRut(rut);
         if(fees.isEmpty()){
