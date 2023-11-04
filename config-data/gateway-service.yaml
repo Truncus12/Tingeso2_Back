@@ -34,3 +34,7 @@ spring:
           uri: lb://fee-service
           predicates:
             - Path=/fee/**
+        - id: last-service
+          uri: lb://last-service
+          predicates:
+            - Path=/last/**
