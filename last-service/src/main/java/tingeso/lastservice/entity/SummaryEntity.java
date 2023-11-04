@@ -22,7 +22,7 @@ public class SummaryEntity {
     Integer nExams;         // Nro. exámenes rendidos
     Integer averageScore;   // Promedio puntaje exámenes
     Float totalDebt;        // Monto total arancel a pagar
-    String paymentMehotd;   // Tipo Pago (Contado/Cuotas)
+    String paymentMethod;   // Tipo Pago (Contado/Cuotas)
     Integer nFees;          // Nro. total de cuotas pactadas
     Integer nPaidFees;      // Nro. cuotas pagadas
     Float totalPaid;        // Monto total pagado
