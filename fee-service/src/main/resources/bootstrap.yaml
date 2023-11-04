@@ -11,7 +11,7 @@ spring:
   application:
     name: fee-service
   jpa:
-    database-plataform: org.hibernate.dialect.PostgresPlusDialect
+    database-platform: org.hibernate.dialect.PostgresPlusDialect
     generate-ddl: true
     show-sql: true
     hibernate:
