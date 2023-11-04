@@ -2,22 +2,24 @@ package tingeso.lastservice.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import tingeso.lastservice.model.FeeEntity;
 import tingeso.lastservice.service.ExamService;
 
 import java.time.LocalDate;
 import java.util.List;
 
-@RestController()
-@RequestMapping("/exam")
+@RestController
+@RequestMapping("/last")
 public class ExamController {
 
     @Autowired
     ExamService examService;
+
+    @GetMapping("/")
+    public void test(){
+        System.out.println("Test");
+    }
 
     @PutMapping("/")
     public ResponseEntity<List<FeeEntity>> applyExam(@RequestParam Integer rut, LocalDate date, Integer score){

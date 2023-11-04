@@ -116,7 +116,6 @@ public class FeeService {
     }
 
     public FeeEntity updateFee(Integer id, Float debt){
-        System.out.println("id: " + id + " debt: " + debt);
         FeeEntity fee = feeRepository.findById(id).orElse(null);
         if(fee == null){
             return null;
