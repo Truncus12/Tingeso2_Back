@@ -55,4 +55,15 @@ public class FeeController {
         }
         return ResponseEntity.ok(feeUpdated);
     }
+
+    @PutMapping("/update")
+    public ResponseEntity<FeeEntity> updateFee(@RequestParam Integer id, Float debt){
+        System.out.println("Dentro controller");
+        System.out.println("id: " + id + " debt: " + debt);
+        FeeEntity feeUpdated = feeService.updateFee(id,debt);
+        if(feeUpdated == null){
+            return ResponseEntity.notFound().build();
+        }
+        return ResponseEntity.ok(feeUpdated);
+    }
 }

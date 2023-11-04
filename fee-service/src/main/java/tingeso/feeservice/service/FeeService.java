@@ -114,4 +114,15 @@ public class FeeService {
         feeRepository.save(fee);
         return fee;
     }
+
+    public FeeEntity updateFee(Integer id, Float debt){
+        System.out.println("id: " + id + " debt: " + debt);
+        FeeEntity fee = feeRepository.findById(id).orElse(null);
+        if(fee == null){
+            return null;
+        }
+        fee.setDebt(debt);
+        feeRepository.save(fee);
+        return fee;
+    }
 }
