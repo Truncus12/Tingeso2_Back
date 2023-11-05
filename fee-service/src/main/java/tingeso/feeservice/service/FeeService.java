@@ -113,6 +113,10 @@ public class FeeService {
         return fees;
     }
 
+    public List<FeeEntity> byRut2(Integer rut){
+        return feeRepository.findByRut(rut);
+    }
+
     public List<FeeEntity> lateFee(List<FeeEntity> fees){
         int difference = 0;
         for (FeeEntity fee : fees) {

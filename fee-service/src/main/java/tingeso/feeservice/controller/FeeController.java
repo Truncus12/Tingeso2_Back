@@ -47,6 +47,15 @@ public class FeeController {
         return ResponseEntity.ok(fees);
     }
 
+    @GetMapping("/summary/{rut}")
+    public ResponseEntity<List<FeeEntity>> byRut2(@PathVariable("rut") int rut){
+        List<FeeEntity> fees = feeService.byRut2(rut);
+        if(fees.isEmpty()){
+            return ResponseEntity.noContent().build();
+        }
+        return ResponseEntity.ok(fees);
+    }
+
     @PutMapping("/{id}")
     public ResponseEntity<FeeEntity> payFee(@PathVariable("id") int id){
         FeeEntity feeUpdated = feeService.payFee(id);

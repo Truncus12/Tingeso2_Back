@@ -49,7 +49,7 @@ public class SummaryService {
 
     public List<FeeEntity> getFees(Integer rut){
         ResponseEntity<List<FeeEntity>> response = restTemplate.exchange(
-                "http://localhost:8080/fee/"+rut,
+                "http://localhost:8080/fee/summary/"+rut,
                 org.springframework.http.HttpMethod.GET,
                 null,
                 new org.springframework.core.ParameterizedTypeReference<>() {}
