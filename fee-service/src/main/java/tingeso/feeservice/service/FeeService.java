@@ -108,7 +108,40 @@ public class FeeService {
     }
 
     public List<FeeEntity> byRut(Integer rut){
-        return feeRepository.findByRut(rut);
+        List<FeeEntity> fees = feeRepository.findByRut(rut);
+        fees = lateFee(fees);
+        return fees;
+    }
+
+    public List<FeeEntity> lateFee(List<FeeEntity> fees){
+        int difference = 0;
+        for (FeeEntity fee : fees) {
+            if (!(fee.getState().equalsIgnoreCase("pagado"))){
+                difference = LocalDate.now().getMonthValue() - fee.getMonth().getValue();
+
+                if (difference > 0) {
+                    fee.setState("Atrasado");
+
+                    switch (difference){
+                        case 1:
+                            fee.setDebt(fee.getDebt() + (fee.getDebt()*0.03f));
+                            break;
+                        case 2:
+                            fee.setDebt(fee.getDebt() + (fee.getDebt()*0.06f));
+                            break;
+                        case 3:
+                            fee.setDebt(fee.getDebt() + (fee.getDebt()*0.09f));
+                            break;
+                    }
+
+                    if (difference > 3){
+                        fee.setDebt(fee.getDebt() + (fee.getDebt()*0.15f));
+                    }
+                }
+            }
+        }
+
+        return feeRepository.saveAll(fees);
     }
 
     public FeeEntity payFee(Integer id){
@@ -118,8 +151,7 @@ public class FeeService {
         }
         fee.setState("Pagado");
         fee.setDebt(0f);
-        feeRepository.save(fee);
-        return fee;
+        return feeRepository.save(fee);
     }
 
     public FeeEntity updateFee(Integer id, Float debt){
