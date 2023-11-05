@@ -41,17 +41,17 @@ public class SummaryEntity {
     (_) ¿PROMEDIO PUNTAJE?
         ¿Se guardan notas en un arreglo y un valor siempre es el promedio?
         ¿Cuando se hace esto? ¿1 vez al año?
-    (_)Cada vez que se piden los Summary se calculan:
-        nPaidFees - totalPaid - leftDebt - nLateFees
+    (_) Cada vez que se piden los Summary se calculan:
+        nPaidFees - ¿totalPaid? - leftDebt - nLateFees
     ¿Cada vez que se paga se guarda la fecha de último pago?
 
     TO-DO:
-    - Implementar un findByRut de SummaryEntity
-    - Crear student con crear Summary
-    - Leer examen con aumentar nExam
-    - Controller pedir Summaries
-    - Calcular nPaidFees
+    X Implementar un findByRut de SummaryEntity
+    X Crear fee con crear Summary
+    X Leer examen con aumentar nExam
+    X Controller pedir Summaries
+    X Calcular nPaidFees
+    X Calcular nLateFees
+    X Calcular leftDebt
     - Calcular totalPaid
-    - Calcular leftDebt
-    - Calcular nLateFees
  */

@@ -6,6 +6,8 @@ import org.springframework.web.bind.annotation.*;
 import tingeso.lastservice.entity.SummaryEntity;
 import tingeso.lastservice.service.SummaryService;
 
+import java.util.List;
+
 @RestController
 @RequestMapping("/last")
 public class SummaryController {
@@ -30,5 +32,15 @@ public class SummaryController {
             return ResponseEntity.notFound().build();
         }
         return ResponseEntity.ok(summary);
+    }
+
+    @GetMapping("/summary/all")
+    public ResponseEntity<List<SummaryEntity>> getAll(){
+        List<SummaryEntity> summaries = summaryService.getAll();
+        if(summaries.isEmpty()){
+            return ResponseEntity.noContent().build();
+        }
+
+        return ResponseEntity.ok(summaries);
     }
 }
