@@ -38,6 +38,9 @@ public class ExamController {
             System.out.println("No se pudo aplicar el descuento");
             return ResponseEntity.noContent().build();
         }
+
+        examService.addNExam(rut);
+
         return ResponseEntity.ok(fees);
     }
 }

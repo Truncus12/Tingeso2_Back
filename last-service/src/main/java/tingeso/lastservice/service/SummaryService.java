@@ -30,4 +30,11 @@ public class SummaryService {
         summaryRepository.save(summary);
         return ResponseEntity.ok(summary);
     }
+
+    public SummaryEntity addNExan(Integer rut){
+        SummaryEntity summary = summaryRepository.findByRut(rut);
+        summary.setNExams(summary.getNExams()+1);
+        summaryRepository.save(summary);
+        return summary;
+    }
 }

@@ -19,7 +19,7 @@ public class SummaryEntity {
 
     Integer rut;            // rut
     String name;            // nombre
-    Integer nExams;         // Nro. exámenes rendidos
+    Integer nExams = 0;     // Nro. exámenes rendidos
     Integer averageScore;   // Promedio puntaje exámenes
     Float totalDebt;        // Monto total arancel a pagar
     String paymentMethod;   // Tipo Pago (Contado/Cuotas)
@@ -33,7 +33,7 @@ public class SummaryEntity {
 
 /*
     Idea:
-    Cada vez que se crea un student se crea un SummaryEntity
+    Cada vez que se crea un fee se crea un SummaryEntity
         Se asignan los datos que se pueden crear en el momento
         Rut - name - totalDebt - paymentMethod - nFees
     Cada vez que se lee un exam aumenta nExman de SummaryEntity
