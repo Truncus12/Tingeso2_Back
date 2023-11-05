@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 import tingeso.feeservice.entity.FeeEntity;
 import tingeso.feeservice.model.StudentEntity;
+import tingeso.feeservice.model.SummaryEntity;
 import tingeso.feeservice.repository.FeeRepository;
 
 import java.time.LocalDate;
@@ -30,13 +31,17 @@ public class FeeService {
     public List<FeeEntity> createFee(Integer rut, Integer nFees, LocalDate startSemester, String typePayment){
 
         List<FeeEntity> fees = new ArrayList<>();
+
+        // connect to student microservice to get student
+        StudentEntity student = findByRut(rut);
+
+        float debt = 0f;
+
         if (typePayment.equalsIgnoreCase("cuotas") &&
                 LocalDate.now().isEqual(startSemester.minusDays(5))){
 
-            float debt = 1500000f / nFees;
+            debt = 1500000f / nFees;
 
-            // connect to student microservice to get student
-            StudentEntity student = findByRut(rut);
 
             // discount by type of school
             switch (student.getPastSchool().toLowerCase()){
@@ -70,6 +75,8 @@ public class FeeService {
             fees.add(fee);
             feeRepository.save(fee);
         }
+
+        saveSummaryEntity(rut, student.getNames(), debt, typePayment, nFees);
 
         return feeRepository.saveAll(fees);
     }
@@ -123,5 +130,17 @@ public class FeeService {
         fee.setDebt(debt);
         feeRepository.save(fee);
         return fee;
+    }
+
+    public void saveSummaryEntity(Integer rut, String name, Float totalDebt,
+                                  String paymentMethod, Integer nFees){
+        SummaryEntity summaryEntity = new SummaryEntity();
+        summaryEntity.setRut(rut);
+        summaryEntity.setName(name);
+        summaryEntity.setTotalDebt(totalDebt);
+        summaryEntity.setPaymentMethod(paymentMethod);
+        summaryEntity.setNFees(nFees);
+
+        restTemplate.postForObject("http://localhost:8080/last/summary/", summaryEntity, SummaryEntity.class);
     }
 }
