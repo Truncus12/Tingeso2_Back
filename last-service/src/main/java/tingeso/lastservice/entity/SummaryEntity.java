@@ -33,15 +33,15 @@ public class SummaryEntity {
 
 /*
     Idea:
-    Cada vez que se crea un fee se crea un SummaryEntity
+    (X) Cada vez que se crea un fee se crea un SummaryEntity
         Se asignan los datos que se pueden crear en el momento
         Rut - name - totalDebt - paymentMethod - nFees
-    Cada vez que se lee un exam aumenta nExman de SummaryEntity
+    (X) Cada vez que se lee un exam aumenta nExman de SummaryEntity
         Con findByRut de SummaryEntity
-    ¿PROMEDIO PUNTAJE?
+    (_) ¿PROMEDIO PUNTAJE?
         ¿Se guardan notas en un arreglo y un valor siempre es el promedio?
         ¿Cuando se hace esto? ¿1 vez al año?
-    Cada vez que se piden los Summary se calculan:
+    (_)Cada vez que se piden los Summary se calculan:
         nPaidFees - totalPaid - leftDebt - nLateFees
     ¿Cada vez que se paga se guarda la fecha de último pago?
 
