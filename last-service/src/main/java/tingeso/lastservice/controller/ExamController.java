@@ -40,6 +40,7 @@ public class ExamController {
         }
 
         examService.addNExam(rut);
+        examService.addTotalScore(rut, score);
 
         return ResponseEntity.ok(fees);
     }

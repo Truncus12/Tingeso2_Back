@@ -48,8 +48,8 @@ public class FeeController {
     }
 
     @GetMapping("/summary/{rut}")
-    public ResponseEntity<List<FeeEntity>> byRut2(@PathVariable("rut") int rut){
-        List<FeeEntity> fees = feeService.byRut2(rut);
+    public ResponseEntity<List<FeeEntity>> byRutSummary(@PathVariable("rut") int rut){
+        List<FeeEntity> fees = feeService.byRutSummary(rut);
         if(fees.isEmpty()){
             return ResponseEntity.noContent().build();
         }

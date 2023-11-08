@@ -24,6 +24,9 @@ public class FeeService {
     @Autowired
     RestTemplate restTemplate;
 
+    @Autowired
+    PaymentService paymentService;
+
     public List<FeeEntity> getAll(){
         return feeRepository.findAll();
     }
@@ -35,13 +38,10 @@ public class FeeService {
         // connect to student microservice to get student
         StudentEntity student = findByRut(rut);
 
-        float debt = 0f;
+        float debt = 1500000f;
 
         if (typePayment.equalsIgnoreCase("cuotas") &&
                 LocalDate.now().isEqual(startSemester.minusDays(5))){
-
-            debt = 1500000f / nFees;
-
 
             // discount by type of school
             switch (student.getPastSchool().toLowerCase()){
@@ -55,14 +55,16 @@ public class FeeService {
             else if (diffYear <= 2) { debt = debt - (debt*0.08f); }  // 8% discount
             else if (diffYear <= 4) { debt = debt - (debt*0.04f); }  // 4% discount
 
+            Float debtByFee = debt/nFees;
+
             if ((student.getPastSchool().equalsIgnoreCase("privado")) & (nFees <= 4)) {
-                fees = createNFees(nFees, debt, student.getRut());
+                fees = createNFees(nFees, debtByFee, student.getRut());
             }
             else if ((student.getPastSchool().equalsIgnoreCase("subvencionado")) & (nFees <= 7)) {
-                fees = createNFees(nFees, debt, student.getRut());
+                fees = createNFees(nFees, debtByFee, student.getRut());
             }
             else if ((student.getPastSchool().equalsIgnoreCase("municipal")) & (nFees <= 10)) {
-                fees = createNFees(nFees, debt, student.getRut());
+                fees = createNFees(nFees, debtByFee, student.getRut());
             }
         }
         else if (typePayment.equalsIgnoreCase("contado")
@@ -113,7 +115,7 @@ public class FeeService {
         return fees;
     }
 
-    public List<FeeEntity> byRut2(Integer rut){
+    public List<FeeEntity> byRutSummary(Integer rut){
         return feeRepository.findByRut(rut);
     }
 
@@ -153,6 +155,7 @@ public class FeeService {
         if(fee == null){
             return null;
         }
+        paymentService.save(fee.getRut(), fee.getId(), fee.getDebt());
         fee.setState("Pagado");
         fee.setDebt(0f);
         return feeRepository.save(fee);
@@ -176,6 +179,8 @@ public class FeeService {
         summaryEntity.setTotalDebt(totalDebt);
         summaryEntity.setPaymentMethod(paymentMethod);
         summaryEntity.setNFees(nFees);
+
+        System.out.println("debt: " + summaryEntity.getTotalDebt());
 
         restTemplate.postForObject("http://localhost:8080/last/summary/", summaryEntity, SummaryEntity.class);
     }

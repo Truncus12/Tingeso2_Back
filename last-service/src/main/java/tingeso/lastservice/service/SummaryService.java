@@ -6,8 +6,10 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 import tingeso.lastservice.entity.SummaryEntity;
 import tingeso.lastservice.model.FeeEntity;
+import tingeso.lastservice.model.PaymentEntity;
 import tingeso.lastservice.repository.SummaryRepository;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
@@ -33,7 +35,7 @@ public class SummaryService {
         SummaryEntity summary = new SummaryEntity();
         summary.setRut(summaryEntity.getRut());
         summary.setName(summaryEntity.getName());
-        summary.setTotalDebt(summary.getTotalDebt());
+        summary.setTotalDebt(summaryEntity.getTotalDebt());
         summary.setPaymentMethod(summaryEntity.getPaymentMethod());
         summary.setNFees(summaryEntity.getNFees());
         summaryRepository.save(summary);
@@ -95,14 +97,62 @@ public class SummaryService {
         return leftDebt;
     }
 
+    public Float averageScore(SummaryEntity summary){
+        if (summary.getNExams() == 0){
+            return 0f;
+        }
+        return summary.getTotalScore()/summary.getNExams();
+    }
+
+    public void addScore(Integer rut, Integer score){
+        SummaryEntity summary = summaryRepository.findByRut(rut);
+        summary.setTotalScore(summary.getTotalScore()+score);
+    }
+
+
+    public Float totalPaid(Integer rut){
+        Float totalPaid = 0f;
+
+        // connection to payment
+        ResponseEntity<List<PaymentEntity>> response = restTemplate.exchange(
+                "http://localhost:8080/fee/payment/all/"+rut,
+                org.springframework.http.HttpMethod.GET,
+                null,
+                new org.springframework.core.ParameterizedTypeReference<>() {}
+        );
+
+        List<PaymentEntity> payments = response.getBody();
+        assert payments != null;
+        for (PaymentEntity payment : payments) {
+            totalPaid += payment.getAmount();
+        }
+
+        return totalPaid;
+    }
+
+    public LocalDate lastPayment(Integer rut){
+        // connection to payment
+        ResponseEntity<LocalDate> response = restTemplate.exchange(
+                "http://localhost:8080/fee/payment/date/"+rut,
+                org.springframework.http.HttpMethod.GET,
+                null,
+                new org.springframework.core.ParameterizedTypeReference<>() {}
+        );
+
+        return response.getBody();
+    }
+
     public List<SummaryEntity> getAll(){
         List<SummaryEntity> summaries = summaryRepository.findAll();
         List<FeeEntity> fees;
         for (SummaryEntity summary : summaries) {
             fees = getFees(summary.getRut());
+            summary.setAverageScore(averageScore(summary));
+            summary.setTotalPaid(totalPaid(summary.getRut()));
+            summary.setLastPayment(lastPayment(summary.getRut()));
+            summary.setLeftDebt(leftDebt(fees));
             summary.setNPaidFees(getNPaidFees(fees));
             summary.setNLateFees(getNLateFees(fees));
-            summary.setLeftDebt(leftDebt(fees));
         }
         return summaries;
     }

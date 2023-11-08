@@ -20,7 +20,7 @@ public class SummaryEntity {
     Integer rut;            // rut
     String name;            // nombre
     Integer nExams = 0;     // Nro. exámenes rendidos
-    Integer averageScore;   // Promedio puntaje exámenes
+    Float averageScore;     // Promedio puntaje exámenes
     Float totalDebt;        // Monto total arancel a pagar
     String paymentMethod;   // Tipo Pago (Contado/Cuotas)
     Integer nFees;          // Nro. total de cuotas pactadas
@@ -29,6 +29,8 @@ public class SummaryEntity {
     LocalDate lastPayment;  // Fecha último pago
     Float leftDebt;         // Saldo por pagar
     Integer nLateFees;      // Nro. Cuotas con retraso
+
+    private Float totalScore = 0f;
 }
 
 /*
@@ -38,11 +40,11 @@ public class SummaryEntity {
         Rut - name - totalDebt - paymentMethod - nFees
     (X) Cada vez que se lee un exam aumenta nExman de SummaryEntity
         Con findByRut de SummaryEntity
-    (_) ¿PROMEDIO PUNTAJE?
-        ¿Se guardan notas en un arreglo y un valor siempre es el promedio?
-        ¿Cuando se hace esto? ¿1 vez al año?
-    (_) Cada vez que se piden los Summary se calculan:
-        nPaidFees - ¿totalPaid? - leftDebt - nLateFees
+    (X) Promedio score
+        Se tiene siempre el total de score y se divide en nExams
+        cuando se pide el summary
+    (X) Cada vez que se piden los Summary se calculan:
+        nPaidFees - totalPaid - leftDebt - nLateFees
     ¿Cada vez que se paga se guarda la fecha de último pago?
 
     TO-DO:

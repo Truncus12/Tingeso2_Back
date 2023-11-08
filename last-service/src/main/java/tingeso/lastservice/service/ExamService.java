@@ -17,7 +17,8 @@ public class ExamService {
     @Autowired
     RestTemplate restTemplate;
 
-    @Autowired SummaryService summaryService;
+    @Autowired
+    SummaryService summaryService;
 
     // obtener todas las cuotas de un estudiante
     // obtener solo las cuotas con estado pendiente
@@ -81,6 +82,10 @@ public class ExamService {
 
     public void addNExam(Integer rut){
         summaryService.addNExan(rut);
+    }
+
+    public void addTotalScore(Integer rut, Integer score){
+        summaryService.addScore(rut, score);
     }
 
 }
