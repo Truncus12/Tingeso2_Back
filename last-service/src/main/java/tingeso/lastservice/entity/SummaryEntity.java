@@ -30,7 +30,7 @@ public class SummaryEntity {
     Float leftDebt;         // Saldo por pagar
     Integer nLateFees;      // Nro. Cuotas con retraso
 
-    private Float totalScore = 0f;
+    public Float totalScore = 0f;
 }
 
 /*

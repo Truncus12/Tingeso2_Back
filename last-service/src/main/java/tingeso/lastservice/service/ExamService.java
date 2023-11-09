@@ -28,7 +28,7 @@ public class ExamService {
 
     public List<FeeEntity> getFeesByRut(Integer rut){
         ResponseEntity<List<FeeEntity>> responseEntity = restTemplate.exchange(
-                "http://localhost:8080/fee/" + rut,
+                "http://localhost:8080/fee/summary/" + rut,
                 HttpMethod.GET,
                 null,
                 new ParameterizedTypeReference<List<FeeEntity>>() {

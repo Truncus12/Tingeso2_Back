@@ -107,6 +107,7 @@ public class SummaryService {
     public void addScore(Integer rut, Integer score){
         SummaryEntity summary = summaryRepository.findByRut(rut);
         summary.setTotalScore(summary.getTotalScore()+score);
+        summaryRepository.save(summary);
     }
 
 
