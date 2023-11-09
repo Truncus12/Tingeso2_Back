@@ -5,7 +5,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.time.Month;
+import java.time.YearMonth;
 
 @Entity
 @Data
@@ -17,7 +17,7 @@ public class FeeEntity {
     @Column(name = "id", nullable = false)
     private Long id;
 
-    public Month month;
+    public YearMonth date;
     public Float debt;
     public String state;
     public Integer rut;

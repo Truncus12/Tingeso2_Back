@@ -13,6 +13,8 @@ import tingeso.feeservice.repository.FeeRepository;
 
 import java.time.LocalDate;
 import java.time.Year;
+import java.time.YearMonth;
+import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -70,7 +72,7 @@ public class FeeService {
         else if (typePayment.equalsIgnoreCase("contado")
                 && LocalDate.now().isEqual(startSemester.minusDays(5))){
             FeeEntity fee = new FeeEntity();
-            fee.setMonth(LocalDate.now().getMonth());
+            fee.setDate(YearMonth.now());
             fee.setDebt(750000f);
             fee.setState("Pendiente");
             fee.setRut(rut);
@@ -98,7 +100,7 @@ public class FeeService {
 
         for (int i = 0; i < nFees; i++){
             FeeEntity fee = new FeeEntity();
-            fee.setMonth(LocalDate.now().getMonth());
+            fee.setDate(YearMonth.now().plusMonths(i));
             fee.setDebt(debt);
             fee.setState("Pendiente");
             fee.setRut(rut);
@@ -120,11 +122,13 @@ public class FeeService {
     }
 
     public List<FeeEntity> lateFee(List<FeeEntity> fees){
-        int difference = 0;
+        long lDifference = 0;
+        int difference;
         for (FeeEntity fee : fees) {
             if (!(fee.getState().equalsIgnoreCase("pagado"))){
-                difference = LocalDate.now().getMonthValue() - fee.getMonth().getValue();
-
+                // months of difference between fee 'month' and present month
+                lDifference = ChronoUnit.MONTHS.between(fee.date, YearMonth.now());
+                difference = (int) lDifference;
                 if (difference > 0) {
                     fee.setState("Atrasado");
 
