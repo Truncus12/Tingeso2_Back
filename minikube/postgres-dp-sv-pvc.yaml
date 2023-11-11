@@ -74,6 +74,11 @@ spec:
                 configMapKeyRef:
                   name: postgres-config-map
                   key: POSTGRES_DB_STUDENT
+            - name: POSTGRES_DB_LAST
+              valueFrom:
+                configMapKeyRef:
+                  name: postgres-config-map
+                  key: POSTGRES_DB_LAST
           volumeMounts:
             - mountPath: /var/lib/postgresql/data
               name: db-data
