@@ -13,7 +13,6 @@ import tingeso.feeservice.repository.FeeRepository;
 
 import java.time.LocalDate;
 import java.time.Year;
-import java.time.YearMonth;
 import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 import java.util.List;
@@ -72,7 +71,7 @@ public class FeeService {
         else if (typePayment.equalsIgnoreCase("contado")
                 && LocalDate.now().isEqual(startSemester.minusDays(5))){
             FeeEntity fee = new FeeEntity();
-            fee.setDate(YearMonth.now());
+            fee.setDate(LocalDate.now());
             fee.setDebt(750000f);
             fee.setState("Pendiente");
             fee.setRut(rut);
@@ -90,7 +89,8 @@ public class FeeService {
                 "http://localhost:8080/student/"+rut,
                 HttpMethod.GET,
                 null,
-                new ParameterizedTypeReference<StudentEntity>() {}
+                new ParameterizedTypeReference<>() {
+                }
         );
         return response.getBody();
     }
@@ -100,7 +100,7 @@ public class FeeService {
 
         for (int i = 0; i < nFees; i++){
             FeeEntity fee = new FeeEntity();
-            fee.setDate(YearMonth.now().plusMonths(i));
+            fee.setDate(LocalDate.now().plusMonths(i));
             fee.setDebt(debt);
             fee.setState("Pendiente");
             fee.setRut(rut);
@@ -122,12 +122,12 @@ public class FeeService {
     }
 
     public List<FeeEntity> lateFee(List<FeeEntity> fees){
-        long lDifference = 0;
+        long lDifference;
         int difference;
         for (FeeEntity fee : fees) {
             if (!(fee.getState().equalsIgnoreCase("pagado"))){
                 // months of difference between fee 'month' and present month
-                lDifference = ChronoUnit.MONTHS.between(fee.date, YearMonth.now());
+                lDifference = ChronoUnit.MONTHS.between(fee.getDate(), LocalDate.now());
                 difference = (int) lDifference;
                 if (difference > 0) {
                     fee.setState("Atrasado");
@@ -183,8 +183,6 @@ public class FeeService {
         summaryEntity.setTotalDebt(totalDebt);
         summaryEntity.setPaymentMethod(paymentMethod);
         summaryEntity.setNFees(nFees);
-
-        System.out.println("debt: " + summaryEntity.getTotalDebt());
 
         restTemplate.postForObject("http://localhost:8080/last/summary/", summaryEntity, SummaryEntity.class);
     }
