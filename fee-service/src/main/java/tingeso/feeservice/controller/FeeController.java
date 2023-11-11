@@ -39,8 +39,17 @@ public class FeeController {
     }
 
     @GetMapping("/{rut}")
-    public ResponseEntity<List<FeeEntity>> byRut(@PathVariable("rut") int rut){
+    public ResponseEntity<List<FeeEntity>> byRut(@PathVariable("rut") Integer rut){
         List<FeeEntity> fees = feeService.byRut(rut);
+        if(fees.isEmpty()){
+            return ResponseEntity.noContent().build();
+        }
+        return ResponseEntity.ok(fees);
+    }
+
+    @GetMapping("/summary/{rut}")
+    public ResponseEntity<List<FeeEntity>> byRutSummary(@PathVariable("rut") int rut){
+        List<FeeEntity> fees = feeService.byRutSummary(rut);
         if(fees.isEmpty()){
             return ResponseEntity.noContent().build();
         }
@@ -58,8 +67,6 @@ public class FeeController {
 
     @PutMapping("/update")
     public ResponseEntity<FeeEntity> updateFee(@RequestParam Integer id, Float debt){
-        System.out.println("Dentro controller");
-        System.out.println("id: " + id + " debt: " + debt);
         FeeEntity feeUpdated = feeService.updateFee(id,debt);
         if(feeUpdated == null){
             return ResponseEntity.notFound().build();

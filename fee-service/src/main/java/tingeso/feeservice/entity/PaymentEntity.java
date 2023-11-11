@@ -9,17 +9,16 @@ import java.time.LocalDate;
 
 @Entity
 @Data
-@AllArgsConstructor
 @NoArgsConstructor
-public class FeeEntity {
+@AllArgsConstructor
+public class PaymentEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", nullable = false)
     private Long id;
 
     public LocalDate date;
-    public Float debt;
-    public String state;
     public Integer rut;
-
+    public Long feeId;
+    public Float amount;
 }

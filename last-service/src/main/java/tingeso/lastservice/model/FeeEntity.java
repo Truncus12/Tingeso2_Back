@@ -4,7 +4,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.time.Month;
+import java.util.Date;
 
 @Data
 @NoArgsConstructor
@@ -12,7 +12,7 @@ import java.time.Month;
 public class FeeEntity {
 
     private Integer id;
-    public Month month;
+    public Date date;
     public Float debt;
     public String state;
     public Integer rut;

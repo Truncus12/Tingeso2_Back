@@ -10,3 +10,5 @@ data:
   POSTGRES_DB_FEE: microfee
   #base de dato Estudiantes
   POSTGRES_DB_STUDENT: microstudent
+  #base de dato Last
+  POSTGRES_DB_LAST: microlast

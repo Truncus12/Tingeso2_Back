@@ -1,0 +1,2 @@
+INSERT INTO summary_entity (rut, name, n_exams, average_score, total_debt, n_fees, n_paid_fees, total_paid, last_payment, left_debt, n_late_fees, total_score) VALUES (123456789, 'Carlos', 0, 800, 750000, 1, 0, 0, '2023-01-01', 750000, 1, 0);
+INSERT INTO summary_entity (rut, name, n_exams, average_score, total_debt, n_fees, n_paid_fees, total_paid, last_payment, left_debt, n_late_fees, total_score) VALUES (987654321, 'Juan', 0, 800, 1500000, 3, 0, 0, '2023-01-01', 1500000, 1, 0);

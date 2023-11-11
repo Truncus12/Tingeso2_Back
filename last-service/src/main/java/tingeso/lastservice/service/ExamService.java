@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 import tingeso.lastservice.model.FeeEntity;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -15,6 +16,9 @@ public class ExamService {
 
     @Autowired
     RestTemplate restTemplate;
+
+    @Autowired
+    SummaryService summaryService;
 
     // obtener todas las cuotas de un estudiante
     // obtener solo las cuotas con estado pendiente
@@ -24,7 +28,7 @@ public class ExamService {
 
     public List<FeeEntity> getFeesByRut(Integer rut){
         ResponseEntity<List<FeeEntity>> responseEntity = restTemplate.exchange(
-                "http://localhost:8081/fee/" + rut,
+                "http://localhost:8080/fee/summary/" + rut,
                 HttpMethod.GET,
                 null,
                 new ParameterizedTypeReference<List<FeeEntity>>() {
@@ -35,12 +39,13 @@ public class ExamService {
     }
 
     public List<FeeEntity> feesPending(List<FeeEntity> fees){
+        List<FeeEntity> newFees = new ArrayList<>();
         for (FeeEntity fee : fees) {
             if (fee.getState().equalsIgnoreCase("pendiente")) {
-                fees.add(fee);
+                newFees.add(fee);
             }
         }
-        return fees;
+        return newFees;
     }
 
     public List<FeeEntity> applyDiscount(List<FeeEntity> fees, Integer score){
@@ -64,7 +69,7 @@ public class ExamService {
             int id = fee.getId();
             float debt = fee.getDebt();
             ResponseEntity<FeeEntity> responseEntity = restTemplate.exchange(
-                    "http://localhost:8081/fee/update?id=" + id + "&debt=" + debt,
+                    "http://localhost:8080/fee/update?id=" + id + "&debt=" + debt,
                     HttpMethod.PUT,
                     null,
                     new ParameterizedTypeReference<FeeEntity>() {
@@ -74,4 +79,13 @@ public class ExamService {
 
         return fees;
     }
+
+    public void addNExam(Integer rut){
+        summaryService.addNExan(rut);
+    }
+
+    public void addTotalScore(Integer rut, Integer score){
+        summaryService.addScore(rut, score);
+    }
+
 }
