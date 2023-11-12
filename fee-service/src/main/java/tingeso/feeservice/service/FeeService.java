@@ -86,7 +86,7 @@ public class FeeService {
 
     public StudentEntity findByRut(Integer rut){
         ResponseEntity<StudentEntity> response = restTemplate.exchange(
-                "http://localhost:8080/student/"+rut,
+                "http://student-service/student/"+rut,
                 HttpMethod.GET,
                 null,
                 new ParameterizedTypeReference<>() {
@@ -184,6 +184,6 @@ public class FeeService {
         summaryEntity.setPaymentMethod(paymentMethod);
         summaryEntity.setNFees(nFees);
 
-        restTemplate.postForObject("http://localhost:8080/last/summary/", summaryEntity, SummaryEntity.class);
+        restTemplate.postForObject("http://last-service/last/summary/", summaryEntity, SummaryEntity.class);
     }
 }
