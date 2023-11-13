@@ -28,7 +28,7 @@ public class ExamService {
 
     public List<FeeEntity> getFeesByRut(Integer rut){
         ResponseEntity<List<FeeEntity>> responseEntity = restTemplate.exchange(
-                "http://localhost:8080/fee/summary/" + rut,
+                "http://gateway-service:8080/fee/summary/" + rut,
                 HttpMethod.GET,
                 null,
                 new ParameterizedTypeReference<List<FeeEntity>>() {
@@ -69,7 +69,7 @@ public class ExamService {
             int id = fee.getId();
             float debt = fee.getDebt();
             ResponseEntity<FeeEntity> responseEntity = restTemplate.exchange(
-                    "http://localhost:8080/fee/update?id=" + id + "&debt=" + debt,
+                    "http://gateway-service:8080/fee/update?id=" + id + "&debt=" + debt,
                     HttpMethod.PUT,
                     null,
                     new ParameterizedTypeReference<FeeEntity>() {

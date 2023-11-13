@@ -51,7 +51,7 @@ public class SummaryService {
 
     public List<FeeEntity> getFees(Integer rut){
         ResponseEntity<List<FeeEntity>> response = restTemplate.exchange(
-                "http://localhost:8080/fee/summary/"+rut,
+                "http://gateway-service:8080/fee/summary/"+rut,
                 org.springframework.http.HttpMethod.GET,
                 null,
                 new org.springframework.core.ParameterizedTypeReference<>() {}
@@ -116,7 +116,7 @@ public class SummaryService {
 
         // connection to payment
         ResponseEntity<List<PaymentEntity>> response = restTemplate.exchange(
-                "http://localhost:8080/fee/payment/all/"+rut,
+                "http://gateway-service:8080/fee/payment/all/"+rut,
                 org.springframework.http.HttpMethod.GET,
                 null,
                 new org.springframework.core.ParameterizedTypeReference<>() {}
@@ -134,7 +134,7 @@ public class SummaryService {
     public LocalDate lastPayment(Integer rut){
         // connection to payment
         ResponseEntity<LocalDate> response = restTemplate.exchange(
-                "http://localhost:8080/fee/payment/date/"+rut,
+                "http://gateway-service:8080/fee/payment/date/"+rut,
                 org.springframework.http.HttpMethod.GET,
                 null,
                 new org.springframework.core.ParameterizedTypeReference<>() {}
